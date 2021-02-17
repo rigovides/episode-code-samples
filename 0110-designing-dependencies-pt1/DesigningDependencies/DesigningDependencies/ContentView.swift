@@ -112,6 +112,10 @@ protocol WeatherClientProtocol {
 }
 
 struct WeatherClient: WeatherClientProtocol {
+    func searchLocations(coordinate: CLLocationCoordinate2D) -> AnyPublisher<[Location], Error> {
+        Just([Location]()).setFailureType(to: Error.self).eraseToAnyPublisher()
+    }
+
   func weather() -> AnyPublisher<WeatherResponse, Error> {
     URLSession.shared.dataTaskPublisher(for: URL(string: "https://www.metaweather.com/api/location/2459115")!)
       .map { data, _ in data }
